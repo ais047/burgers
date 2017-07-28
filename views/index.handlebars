@@ -1,4 +1,4 @@
-<h1>Cats!</h1>
+<h1>YUM!</h1>
 
 <h2>BURGERS~!</h2>
 
@@ -6,14 +6,14 @@
   {{#each burgers}}
     {{#unless this.eaten}}
       <li>
-        {{this.name}}
+        {{this.burger}}
 
         <form action="/{{this.id}}?_method=PUT" method="POST">
           <input type="hidden" name="eaten" value="true">
           <button type="submit">Eat burger!</button>
         </form>
 
-        {{> cats/delete-burger}}
+        {{> burgers/delete-burger}}
       </li>
     {{/unless}}
   {{/each}}
@@ -25,14 +25,14 @@
   {{#each burgers}}
     {{#if this.eaten}}
       <li>
-        {{this.name}}
+        {{this.burger}}
 
         <form action="/{{this.id}}?_method=PUT" method="POST">
           <input type="hidden" name="eaten" value="false">
-          <button type="submit">ORDER ANOTHER!</button>
+          <button type="submit">UNEAT (time manipulation)!</button>
         </form>
 
-        {{> cats/delete-burger}}
+        {{> burgers/delete-burger}}
       </li>
     {{/if}}
   {{/each}}
@@ -48,8 +48,8 @@
 
   <div class="form-group">
     <label for="slee">Sleepy?</label><br>
-    <input type="radio" name="eaten" value="1" checked> Sleepy!<br>
-    <input type="radio" name="eaten" value="0"> Awake
+    <input type="radio" name="eaten" value="1" checked> Eat NOW!<br>
+    <input type="radio" name="eaten" value="0"> eat later.
   </div>
 
   <button type="submit">Add burger</button>
