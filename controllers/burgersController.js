@@ -7,7 +7,7 @@ var burger = require("../models/burger.js");
 
 // Create all our routes and set up logic within those routes where required.
 router.get("/", function(req, res) {
-  burger.findAll({}).then(function(data) {
+  burger.sequelize.findAll({}).then(function(data) {
     var hbsObject = {
       burgers: data
     };
@@ -17,7 +17,7 @@ router.get("/", function(req, res) {
 });
 
 router.post("/", function(req, res) {
-  burger.create({
+  burger.sequelize.create({
     burger: req.body.burger,
     eaten: req.body.burger
   }).then(function(){
@@ -30,7 +30,7 @@ router.put("/:id", function(req, res) {
 
   console.log("condition", condition);
 
-  burger.update({
+  burger.sequelize.update({
     eaten: req.body.eaten
   }, { where: {
       id: req.params.id
@@ -40,7 +40,7 @@ router.put("/:id", function(req, res) {
   });
 });
 
-router.delete("/:id", function(req, res) {
+router.sequelize.delete("/:id", function(req, res) {
   var condition = "id = " + req.params.id;
   burger.destory({where: {
     id: req.params.id}}).then(function(){
