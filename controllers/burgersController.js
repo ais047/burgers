@@ -40,9 +40,9 @@ router.put("/:id", function(req, res) {
   });
 });
 
-router.sequelize.delete("/:id", function(req, res) {
+router.delete("/:id", function(req, res) {
   var condition = "id = " + req.params.id;
-  burger.destory({where: {
+  burger.sequelize.destory({where: {
     id: req.params.id}}).then(function(){
     res.redirect("/");      
     })
