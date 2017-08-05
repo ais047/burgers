@@ -7,7 +7,7 @@ var burger = require("../models/burger.js");
 
 // Create all our routes and set up logic within those routes where required.
 router.get("/", function(req, res) {
-  burger.all(function(data) {
+  burger.findAll({}).then(function(data) {
     var hbsObject = {
       burgers: data
     };
@@ -17,11 +17,10 @@ router.get("/", function(req, res) {
 });
 
 router.post("/", function(req, res) {
-  burger.create([
-    "burger", "eaten"
-  ], [
-    req.body.burger, req.body.eaten
-  ], function() {
+  burger.create({
+    burger: req.body.burger,
+    eaten: req.body.burger
+  }).then(function(){
     res.redirect("/");
   });
 });
@@ -33,17 +32,20 @@ router.put("/:id", function(req, res) {
 
   burger.update({
     eaten: req.body.eaten
-  }, condition, function() {
+  }, { where: {
+      id: req.params.id
+  }
+  }).then(function() {
     res.redirect("/");
   });
 });
 
 router.delete("/:id", function(req, res) {
   var condition = "id = " + req.params.id;
-
-  burger.delete(condition, function() {
-    res.redirect("/");
-  });
+  burger.destory({where: {
+    id: req.params.id}}).then(function(){
+    res.redirect("/");      
+    })
 });
 
 // Export routes for server.js to use.
